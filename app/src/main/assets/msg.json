@@ -1,0 +1,13 @@
+﻿{
+	"IP":"https://10.2.40.94:443/udrmrsa/udrmGetLicense",
+	"licenceUrl":",IP=192.168.127.55,PORT=8080",
+	"operator":"unitend",
+	"watermark":"00101010101110111100110011011101",
+	"agentType":"1",				
+	"data":[	
+		{"url":"http://220.113.14.11:800/cmcc/demo2.m3u8","content_id":"20191025"},
+		{"url":"udp://@238.1.1.2:8000","content_id":"20191009"},
+                {"url":"udp://@238.1.1.3:8000","content_id":"20191010"},
+		{"url":"udp://@239.1.1.2:8208"}
+	]
+}		

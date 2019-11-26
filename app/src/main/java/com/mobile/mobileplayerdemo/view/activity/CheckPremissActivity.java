@@ -1,0 +1,39 @@
+package com.mobile.mobileplayerdemo.view.activity;
+
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.mobile.mobileplayerdemo.R;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+/**
+ * 欢迎页进来开始检查权限
+ */
+public class CheckPremissActivity extends AppCompatActivity {
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏导航栏
+        //全屏显示
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Window window = getWindow();
+        // 延伸显示区域到刘海
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        window.setAttributes(lp);
+        // 设置页面全屏显示
+        final View decorView = window.getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+        //以上设置是为了全屏显示
+        setContentView(R.layout.checkpremiss);
+
+    }
+}

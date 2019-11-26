@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogshape">
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/ed_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="关于"
+            android:textColor="#000"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textColor="#2196F3"
+                android:text="   UDRM版本号"
+                />
+            <TextView
+                android:id="@+id/versioncode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:textColor="#2196F3"
+                android:text="--"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>
