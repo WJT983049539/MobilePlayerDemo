@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -82,7 +83,10 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("DrmUrl", Context.MODE_PRIVATE);
         editor = preferences.edit();
         initData();
-        requestPremiss();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            requestPremiss();
+        };
+
         swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
         recyclerView=findViewById(R.id.main_recycler);
 
