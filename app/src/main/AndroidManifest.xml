@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mobile.mobileplayerdemo">
 
-
     <application
 
         android:name=".tools.mobilePlayerApp"
