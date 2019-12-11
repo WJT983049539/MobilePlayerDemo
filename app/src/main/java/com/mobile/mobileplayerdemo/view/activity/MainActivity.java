@@ -41,9 +41,11 @@ import com.qw.soul.permission.bean.Permission;
 import com.qw.soul.permission.bean.Permissions;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionsListener;
 import com.qw.soul.permission.callbcak.GoAppDetailCallBack;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.player.SystemPlayerManager;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.unitend.udrm.util.UDRM;
 
 import java.io.File;
@@ -301,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
 //        PlayerFactory.setPlayManager(SystemPlayerManager.class);//默认原生播放器
         PlayerFactory.setPlayManager(IjkPlayerManager.class);//ijk模式
+//        GSYVideoType.enableMediaCodec();//支持硬解码
         LogUtils.i("初始化数据");
         aCache=ACache.get(this);
         ArrayList<playUrlbean> arrayList= (ArrayList<playUrlbean>) aCache.getAsObject("Videolist");

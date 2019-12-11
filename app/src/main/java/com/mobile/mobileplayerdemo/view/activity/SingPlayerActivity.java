@@ -24,6 +24,7 @@ import com.mobile.mobileplayerdemo.presenter.PlayHandler;
 import com.mobile.mobileplayerdemo.presenter.Runable.CheckPremissionRunnable;
 import com.mobile.mobileplayerdemo.presenter.Runable.StartPlayRunnable;
 import com.mobile.mobileplayerdemo.view.customview.CustomSingPlayActivity;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.unitend.udrm.util.OnUDRMListener;
@@ -125,6 +126,7 @@ public class SingPlayerActivity extends AppCompatActivity {
         };
     }
 
+
     private void judgePermiss() {
         TextView textView= (TextView) sing_player.getStatuView();
         if(textView!=null){
@@ -185,6 +187,7 @@ public class SingPlayerActivity extends AppCompatActivity {
 
     private void initView() {
         sing_player = (CustomSingPlayActivity) findViewById(R.id.sing_player);
+        sing_player.setLooping(true);//一直循环
         sing_player.getBackButton().setVisibility(View.VISIBLE);
         //外部辅助的旋转，帮助全屏
         orientationUtils = new OrientationUtils(this, sing_player);
@@ -223,6 +226,7 @@ public class SingPlayerActivity extends AppCompatActivity {
                 mUDRM.stopPlayerAgent();
             }
             sing_player.getCurrentPlayer().release();
+            GSYVideoManager.releaseAllVideos();//释放所有
         }
         if (orientationUtils != null)
             orientationUtils.releaseListener();
@@ -325,6 +329,7 @@ public class SingPlayerActivity extends AppCompatActivity {
         sing_player.setUp(url,true,"");
         orientationUtils.setEnable(false);
 //        mUDRM.stopPlayerAgent();//先把以前的关闭，考虑把这部关闭
+
         //增加title
         sing_player.getTitleTextView().setVisibility(View.GONE);
         sing_player.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
