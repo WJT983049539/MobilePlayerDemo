@@ -225,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
                                 };
                             }
                         });
-
                         customEidtDialog.show();
                         break;
                         //设置页面
@@ -272,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, refusedPermissions[0].toString() +
                                 " 权限获取失败", Toast.LENGTH_SHORT).show();
 
-                        new AlertDialog.Builder(MainActivity.this).setTitle("提示").setMessage("如果你拒绝了权限,应用中的一些功能将不糊能正常使用")
+                        new AlertDialog.Builder(MainActivity.this).setTitle("提示").setMessage("如果你拒绝了权限,应用中的一些功能将不能正常使用")
                                 .setPositiveButton("授予权限", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -322,15 +321,6 @@ public class MainActivity extends AppCompatActivity {
 //            list=arrayList;
             point.setVisibility(View.GONE);
         }
-
-
-
-
-
-
-
-
-
     }
 
 
