@@ -43,24 +43,24 @@ public class LogUtils {
         } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Log.e("=====", "6.0以上7.0以下");
-            Toast.makeText(context, "6.0以上7.0以下", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "6.0以上7.0以下", Toast.LENGTH_SHORT).show();
             strMac = getMacAddress(context);
             return strMac;
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Log.e("=====", "7.0以上");
             if (!TextUtils.isEmpty(getMacAddress())) {
                 Log.e("=====", "7.0以上1");
-                Toast.makeText(context, "7.0以上1", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "7.0以上1", Toast.LENGTH_SHORT).show();
                 strMac = getMacAddress();
                 return strMac;
             } else if (!TextUtils.isEmpty(getMachineHardwareAddress())) {
                 Log.e("=====", "7.0以上2");
-                Toast.makeText(context, "7.0以上2", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "7.0以上2", Toast.LENGTH_SHORT).show();
                 strMac = getMachineHardwareAddress();
                 return strMac;
             } else {
                 Log.e("=====", "7.0以上3");
-                Toast.makeText(context, "7.0以上3", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "7.0以上3", Toast.LENGTH_SHORT).show();
                 strMac = getLocalMacAddressFromBusybox();
                 return strMac;
             }

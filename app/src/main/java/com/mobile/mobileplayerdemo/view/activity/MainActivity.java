@@ -21,6 +21,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         super.onCreate(savedInstanceState);
+        //全屏显示
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         list=new ArrayList<playUrlbean>();
         initView();
@@ -225,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                                 };
                             }
                         });
+
                         customEidtDialog.show();
                         break;
                         //设置页面
