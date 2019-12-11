@@ -187,7 +187,7 @@ public class SingPlayerActivity extends AppCompatActivity {
 
     private void initView() {
         sing_player = (CustomSingPlayActivity) findViewById(R.id.sing_player);
-        sing_player.setLooping(true);//一直循环
+//        sing_player.setLooping(true);//一直循环
         sing_player.getBackButton().setVisibility(View.VISIBLE);
         //外部辅助的旋转，帮助全屏
         orientationUtils = new OrientationUtils(this, sing_player);
