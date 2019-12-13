@@ -100,7 +100,7 @@ public class PlayHandler extends Handler {
              */
             case 0x0019:
                 String url=msg.obj.toString();
-                singPlayerActivity.checkPressionSuccess(url);
+                singPlayerActivity.checkPressionSuccess(url,0);
                 break;
 
         }

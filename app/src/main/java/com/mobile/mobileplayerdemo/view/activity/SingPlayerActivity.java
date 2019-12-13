@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -23,6 +24,7 @@ import com.mobile.mobileplayerdemo.model.bean.playUrlbean;
 import com.mobile.mobileplayerdemo.presenter.PlayHandler;
 import com.mobile.mobileplayerdemo.presenter.Runable.CheckPremissionRunnable;
 import com.mobile.mobileplayerdemo.presenter.Runable.StartPlayRunnable;
+import com.mobile.mobileplayerdemo.tools.VideoTools;
 import com.mobile.mobileplayerdemo.view.customview.CustomSingPlayActivity;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack;
@@ -30,12 +32,13 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.unitend.udrm.util.OnUDRMListener;
 import com.unitend.udrm.util.UDRM;
 
+import java.nio.file.Path;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+//在checkPressionSuccess多加了一个参数，演示结束去掉
 public class SingPlayerActivity extends AppCompatActivity {
     /**
      * 默认的drmservice ip地址
@@ -109,21 +112,28 @@ public class SingPlayerActivity extends AppCompatActivity {
         path = m.replaceAll("").trim();
         contentID=pp.getContentId();
         SharedPreferences  sharedPreferences= getSharedPreferences("playerSetInfo", Context.MODE_PRIVATE);
-        //查看解密服务是否打开
-        boolean falg=sharedPreferences.getBoolean("DrmSwitch",true);
-        LogUtils.i("开关为:"+falg);
+        //判断是否是加密视频
+        if(path.contains("enc")){
+            //查看解密服务是否打开
+            boolean falg=sharedPreferences.getBoolean("DrmSwitch",true);
+            LogUtils.i("开关为:"+falg);
 
-        if(falg){
-            mUDRM=new UDRM(this);
-            String version = mUDRM.getUdrmVersion();//获取版本号
-            /**
-             * 判断播放权限
-             */
-            judgePermiss();
+            if(falg){
+                mUDRM=new UDRM(this);
+                String version = mUDRM.getUdrmVersion();//获取版本号
+                /**
+                 * 判断播放权限
+                 */
+                judgePermiss();
+            }else{
+                //否则直接播放不用解密
+                checkPressionSuccess(path,1);
+            };
         }else{
-            //否则直接播放不用解密
-            checkPressionSuccess(path);
-        };
+            //是非加密视频
+            checkPressionSuccess(path,1);
+        }
+
     }
 
 
@@ -196,6 +206,15 @@ public class SingPlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                if (isPlay) {
+                    if(mUDRM!=null){
+                        mUDRM.stopPlayerAgent();
+                    }
+                    sing_player.getCurrentPlayer().release();
+                    GSYVideoManager.releaseAllVideos();//释放所有
+                }
+                if (orientationUtils != null)
+                    orientationUtils.releaseListener();
             }
         });
     }
@@ -293,19 +312,22 @@ public class SingPlayerActivity extends AppCompatActivity {
             ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.wrning);
             textView.setTextColor(csl);
         };
+        checkPressionSuccess("",0);
         /*
          * 启动播放代理
+         * 演示需要暂时屏蔽
          */
-        LogUtils.i("准备播放的url为 "+path);
-        StartPlayRunnable startPlayRunnable=new StartPlayRunnable(this,mUDRM,path,playhandler);
-        Thread thread=new Thread(startPlayRunnable);
-        thread.start();
+//        LogUtils.i("准备播放的url为 "+path);
+//        StartPlayRunnable startPlayRunnable=new StartPlayRunnable(this,mUDRM,path,playhandler);
+//        Thread thread=new Thread(startPlayRunnable);
+//        thread.start();
     }
 
     /**
      * 检测权限成功
+     * //为了演示加了tag,标志是否播放本地视频 1 播放解密的网络视频，真的视频 0，播放本地视频
      */
-    public void checkPressionSuccess(String url) {
+    public void checkPressionSuccess(String url,int tag) {
         //转换url代理成功然后播放
         TextView textView= (TextView) sing_player.getStatuView();
         if(textView!=null){
@@ -326,7 +348,17 @@ public class SingPlayerActivity extends AppCompatActivity {
         //设置返回键
 
         sing_player.setNeedShowWifiTip(false);
-        sing_player.setUp(url,true,"");
+        //做判断
+        if(tag==0){
+            String dir=Environment.getExternalStorageDirectory().getPath();//
+            String ff[]=VideoTools.getExtSDCardPath(SingPlayerActivity.this);
+            String uuu= dir+"/"+"hls/xuerenqiyuan.mp4";
+            String ff2=ff[0]+"/"+"hls/1080p.mp4";
+            sing_player.setUp(uuu,true,"");
+        }else if(tag==1){
+            sing_player.setUp(url,true,"");
+        }
+
         orientationUtils.setEnable(false);
 //        mUDRM.stopPlayerAgent();//先把以前的关闭，考虑把这部关闭
 
@@ -346,22 +378,10 @@ public class SingPlayerActivity extends AppCompatActivity {
             sing_player.getStopView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sing_player.getCurrentPlayer().release();//
-//                     if(mUDRM!=null){
-//                         mUDRM.stopPlayerAgent();
-//                     }
+                    sing_player.getCurrentPlayer().release();
                 }
             });
         }
-//        sing_player.getStartButton().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(sing_player!=null){
-//                   int aa= sing_player.getCurrentState();
-//                   LogUtils.i(aa+"");
-//                }
-//            }
-//        });
         sing_player.startPlayLogic();//立即开始播放
         sing_player.setVideoAllCallBack(new VideoAllCallBack() {
             @Override
@@ -425,6 +445,7 @@ public class SingPlayerActivity extends AppCompatActivity {
             @Override
             public void onAutoComplete(String url, Object... objects) {
                 LogUtils.i("onAutoComplete");
+                sing_player.startPlayLogic();//立即开始播放
             }
 
             @Override

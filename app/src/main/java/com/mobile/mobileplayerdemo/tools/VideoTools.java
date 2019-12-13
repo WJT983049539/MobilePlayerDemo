@@ -1,11 +1,15 @@
 package com.mobile.mobileplayerdemo.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.storage.StorageManager;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 public class VideoTools {
@@ -45,5 +49,30 @@ public class VideoTools {
             flag=true;
         }
         return flag;
+    }
+    /**
+     * 获取外置SD卡路径
+     * String[0]为内置卡
+     * String[1]为外置卡
+     */
+    public static String[] getExtSDCardPath(Activity activity) {
+        StorageManager storageManager = (StorageManager) activity.getSystemService(Context.STORAGE_SERVICE);
+        try {
+            Class<?>[] paramClasses = {};
+            Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths", paramClasses);
+            getVolumePathsMethod.setAccessible(true);
+            Object[] params = {};
+            Object invoke = getVolumePathsMethod.invoke(storageManager, params);
+            return (String[])invoke;
+        } catch (NoSuchMethodException e1) {
+            e1.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
