@@ -22,8 +22,9 @@
 
         <Switch
             android:id="@+id/switchx"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="10dp"
             android:thumb="@drawable/thumb"
             android:track="@drawable/track"
             android:layout_marginLeft="20dp" />

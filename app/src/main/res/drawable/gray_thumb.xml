@@ -3,7 +3,7 @@
     android:shape="rectangle" >
 
     <!-- 高度40 -->
-    <size android:height="14dp" android:width="20dp"/>
+    <size android:height="20dp" android:width="20dp"/>
     <!-- 圆角弧度 20 -->
     <corners android:radius="20dp"/>
 
@@ -14,7 +14,7 @@
         android:startColor="#eeeeee" />
 
     <stroke android:width="1dp"
-        android:color="#666666"/>
+        android:color="#888888"/>
     <solid android:color="#666666"/>
 
 </shape>
