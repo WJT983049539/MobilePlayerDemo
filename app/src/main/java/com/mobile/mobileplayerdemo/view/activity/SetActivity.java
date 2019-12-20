@@ -79,8 +79,8 @@ public class SetActivity extends AppCompatActivity {
                         ArrayList<playUrlbean>videolist=new ArrayList<playUrlbean>();
                         aCache.put("Videolist",videolist);
                         GlobalToast.show("清除历史记录成功",Toast.LENGTH_SHORT);
-                    }else if(list.get(postion).getSetInfo().equals("DRMservice设置")){
-                        LogUtils.i("进入DRMservice设置");
+                    }else if(list.get(postion).getSetInfo().equals("UDRMservice设置")){
+                        LogUtils.i("进入UDRMservice设置");
                         //添加视频
                         final ServiceEidtDialog customEidtDialog=new ServiceEidtDialog(SetActivity.this);
                         customEidtDialog.setYesOnclickListener("确定", new ServiceEidtDialog.onYesOnclickListener() {
@@ -146,12 +146,12 @@ public class SetActivity extends AppCompatActivity {
     private void initdate() {
         list.clear();
         SetInfoBean setInfoBean=new SetInfoBean();
-        setInfoBean.setSetInfo("DRMservice设置");
+        setInfoBean.setSetInfo("UDRMservice设置");
         setInfoBean.setType(1);
         list.add(setInfoBean);
 
         SetInfoBean setInfoBean2=new SetInfoBean();
-        setInfoBean2.setSetInfo("DRM服务开关");
+        setInfoBean2.setSetInfo("UDRM服务开关");
         setInfoBean2.setType(2);
         list.add(setInfoBean2);
 

@@ -113,7 +113,6 @@ public class SingPlayerActivity extends AppCompatActivity {
         contentID=pp.getContentId();
         SharedPreferences  sharedPreferences= getSharedPreferences("playerSetInfo", Context.MODE_PRIVATE);
         //判断是否是加密视频
-        if(path.contains("enc")){
             //查看解密服务是否打开
             boolean falg=sharedPreferences.getBoolean("DrmSwitch",true);
             LogUtils.i("开关为:"+falg);
@@ -129,10 +128,6 @@ public class SingPlayerActivity extends AppCompatActivity {
                 //否则直接播放不用解密
                 checkPressionSuccess(path,1);
             };
-        }else{
-            //是非加密视频
-            checkPressionSuccess(path,1);
-        }
 
     }
 
@@ -312,15 +307,14 @@ public class SingPlayerActivity extends AppCompatActivity {
             ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.wrning);
             textView.setTextColor(csl);
         };
-        checkPressionSuccess("",0);
         /*
          * 启动播放代理
          * 演示需要暂时屏蔽
          */
-//        LogUtils.i("准备播放的url为 "+path);
-//        StartPlayRunnable startPlayRunnable=new StartPlayRunnable(this,mUDRM,path,playhandler);
-//        Thread thread=new Thread(startPlayRunnable);
-//        thread.start();
+        LogUtils.i("准备播放的url为 "+path);
+        StartPlayRunnable startPlayRunnable=new StartPlayRunnable(this,mUDRM,path,playhandler);
+        Thread thread=new Thread(startPlayRunnable);
+        thread.start();
     }
 
     /**
@@ -445,7 +439,7 @@ public class SingPlayerActivity extends AppCompatActivity {
             @Override
             public void onAutoComplete(String url, Object... objects) {
                 LogUtils.i("onAutoComplete");
-                sing_player.startPlayLogic();//立即开始播放
+                sing_player.getCurrentPlayer().startPlayLogic();//立即开始播放
             }
 
             @Override

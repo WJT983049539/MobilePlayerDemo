@@ -29,7 +29,7 @@
             android:textColor="#000"
             android:hint="请输入节目播放地址"
             android:background="@drawable/edittext_xiahua"
-            android:text="http://10.2.40.95:10080/vod/demo4k/enc/demo4k.m3u8"/>
+            android:text="http://10.2.40.100:10080/vod/xuerenqiyuan/enc/xuerenqiyuan.m3u8"/>
         <EditText
             android:id="@+id/ed_message2"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:textColor="#000"
             android:hint="请输入节目content_id"
             android:background="@drawable/edittext_xiahua"
-            android:text="4k30s1232"/>
+            android:text="21e84613-b6ba-4606-81d5-2912d78ab924"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
